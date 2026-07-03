@@ -2,51 +2,65 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Encounter Archive System</title>
+<title>Encounter Field</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="system">
 
-<div class="system">
+<div class="grain"></div>
 
-  <div class="header">
-    encounter archive / live field
-  </div>
-
-  <button onclick="generateEncounter()">
-    generate encounter
-  </button>
-
-  <div id="output" class="output">
-    <!-- fragments appear here -->
-  </div>
-
+<div class="header">
+  live encounter field / hamburg node
 </div>
+
+<div class="flow-note">
+  the system is continuously forming itself
+</div>
+
+<div id="field"></div>
 
 <script>
 const fragments = [
-  "object found near water — perception shifted by reflection",
-  "a fragment of plastic on the river edge — time feels suspended",
-  "walking through harbor zone — attention becomes fragmented",
-  "light on industrial metal — produces non-linear memory trace",
-  "a discarded object becomes a temporary archive node"
+  "light dissolves on water surface — memory becomes unstable",
+  "industrial residue near harbor edge — perception slows down",
+  "a fragment of plastic, half submerged — unreadable time",
+  "walking becomes a scanning process",
+  "objects no longer belong to categories",
+  "attention shifts before recognition completes",
+  "harbor wind reorganizes spatial perception"
 ];
 
-function generateEncounter() {
-  const random = fragments[Math.floor(Math.random() * fragments.length)];
+// 更“艺术”的生成（不是点击，是自动显影）
+function spawn() {
+  const f = fragments[Math.floor(Math.random() * fragments.length)];
 
-  const time = new Date().toISOString();
+  const el = document.createElement("div");
+  el.className = "fragment";
 
-  const node = document.createElement("div");
-  node.className = "fragment";
-  node.innerHTML = `
-    <div class="time">${time}</div>
-    <div class="text">${random}</div>
-  `;
+  el.style.left = Math.random() * 70 + "%";
+  el.style.top = Math.random() * 80 + "%";
+  el.style.opacity = Math.random() * 0.6 + 0.2;
 
-  document.getElementById("output").prepend(node);
+  el.innerText = f;
+
+  document.getElementById("field").appendChild(el);
+
+  // slowly fade out
+  setTimeout(() => {
+    el.style.opacity = 0;
+  }, 8000);
+
+  setTimeout(() => {
+    el.remove();
+  }, 12000);
 }
+
+// 自动生成（不是按钮）
+setInterval(spawn, 1800);
+
+// 初始生成
+for(let i=0;i<5;i++) spawn();
 </script>
 
 </body>
