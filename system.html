@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Encounter Archive System</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="system">
+
+  <div class="header">
+    encounter archive / live field
+  </div>
+
+  <button onclick="generateEncounter()">
+    generate encounter
+  </button>
+
+  <div id="output" class="output">
+    <!-- fragments appear here -->
+  </div>
+
+</div>
+
+<script>
+const fragments = [
+  "object found near water — perception shifted by reflection",
+  "a fragment of plastic on the river edge — time feels suspended",
+  "walking through harbor zone — attention becomes fragmented",
+  "light on industrial metal — produces non-linear memory trace",
+  "a discarded object becomes a temporary archive node"
+];
+
+function generateEncounter() {
+  const random = fragments[Math.floor(Math.random() * fragments.length)];
+
+  const time = new Date().toISOString();
+
+  const node = document.createElement("div");
+  node.className = "fragment";
+  node.innerHTML = `
+    <div class="time">${time}</div>
+    <div class="text">${random}</div>
+  `;
+
+  document.getElementById("output").prepend(node);
+}
+</script>
+
+</body>
+</html> 
