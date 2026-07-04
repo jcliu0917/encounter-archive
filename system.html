@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Encounter Field</title>
+<title>Encounter Archive V3</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -10,58 +10,76 @@
 
 <div class="grain"></div>
 
-<div class="header">
-  live encounter field / hamburg node
-</div>
-
-<div class="flow-note">
-  the system is continuously forming itself
+<div class="ui">
+  <div class="title">encounter archive / v3</div>
+  <button onclick="toggleMode()">switch mode</button>
 </div>
 
 <div id="field"></div>
 
 <script>
-const fragments = [
-  "light dissolves on water surface — memory becomes unstable",
-  "industrial residue near harbor edge — perception slows down",
-  "a fragment of plastic, half submerged — unreadable time",
+
+let mode = "global";
+
+const globalFragments = [
+  "light dissolves into perceptual noise",
+  "objects reorganize attention without warning",
   "walking becomes a scanning process",
-  "objects no longer belong to categories",
-  "attention shifts before recognition completes",
-  "harbor wind reorganizes spatial perception"
+  "time appears as residue",
+  "encounter produces unstable memory"
 ];
 
-// 更“艺术”的生成（不是点击，是自动显影）
-function spawn() {
-  const f = fragments[Math.floor(Math.random() * fragments.length)];
+const hamburgFragments = [
+  "Elbe river shifts perception of distance",
+  "harbor machinery becomes temporal rhythm",
+  "water reflects fragmented urban memory",
+  "cargo structures reorganize attention",
+  "edge of land and water blurs perception"
+];
+
+function getFragments(){
+  return mode === "hamburg" ? hamburgFragments : globalFragments;
+}
+
+function spawn(){
+  const fragments = getFragments();
+  const text = fragments[Math.floor(Math.random() * fragments.length)];
 
   const el = document.createElement("div");
   el.className = "fragment";
 
-  el.style.left = Math.random() * 70 + "%";
-  el.style.top = Math.random() * 80 + "%";
+  el.style.left = Math.random() * 80 + "%";
+  el.style.top = Math.random() * 85 + "%";
   el.style.opacity = Math.random() * 0.6 + 0.2;
 
-  el.innerText = f;
+  el.innerText = text;
 
   document.getElementById("field").appendChild(el);
 
-  // slowly fade out
   setTimeout(() => {
     el.style.opacity = 0;
-  }, 8000);
+  }, 7000);
 
   setTimeout(() => {
     el.remove();
-  }, 12000);
+  }, 11000);
 }
 
-// 自动生成（不是按钮）
-setInterval(spawn, 1800);
+function toggleMode(){
+  mode = mode === "global" ? "hamburg" : "global";
 
-// 初始生成
-for(let i=0;i<5;i++) spawn();
+  // visual reset
+  document.getElementById("field").innerHTML = "";
+
+  for(let i=0;i<6;i++) spawn();
+}
+
+setInterval(spawn, 2000);
+
+// init
+for(let i=0;i<6;i++) spawn();
+
 </script>
 
 </body>
-</html> 
+</html>
